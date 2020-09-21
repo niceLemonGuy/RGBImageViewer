@@ -115,9 +115,9 @@ void Draw ( ESContext *esContext )
                             0.0f,  0.0f,        // TexCoord 0
                            -1.0f,  1.0f, 0.0f,  // Position 1
                             0.0f,  1.0f,        // TexCoord 1
-							1.0f,  1.0f, 0.0f,  // Position 2
+   			    1.0f,  1.0f, 0.0f,  // Position 2
                             1.0f,  1.0f,        // TexCoord 2
-							1.0f, -1.0f, 0.0f,  // Position 3
+			    1.0f, -1.0f, 0.0f,  // Position 3
                             1.0f,  0.0f         // TexCoord 3
                          };
    GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
@@ -196,93 +196,3 @@ int main ( int argc, char **argv )
 
    ShutDown ( &esContext );
 }
-
-
-/*
-2
- * main.c
-3
- *
-4
- *  Created on: Sep 21, 2020
-5
- *      Author: roman
-6
- */
-7
-​
-8
-#include <stdlib.h>
-9
-#include <stdio.h>
-10
-#include <stdint.h>
-11
-#include "esUtil/esUtil.h"
-12
-​
-13
-typedef struct
-14
-{
-15
-   // Handle to a program object
-16
-   GLuint programObject;
-17
-​
-18
-   // Attribute locations
-19
-   GLint  positionLoc;
-20
-   GLint  texCoordLoc;
-21
-​
-22
-   // Sampler location
-23
-   GLint samplerLoc;
-24
-​
-25
-   // Texture handle
-26
-   GLuint textureId;
-27
-​
-28
-} UserData;
-29
-​
-30
-///
-31
-// Create texture image
-32
-//
-33
-GLuint knCreateTextureFromBuf(const char *filename, GLint width, GLint height)
-34
-{
-35
-        FILE *file;
-36
-        GLuint textureId;
-37
-        const int SIZE = width * height * 3;
-38
-        uint8_t buf[SIZE];
-39
-​
-40
-        if((file = fopen(filename, "r")) == NULL) {
-41
-                printf("Cannot open file.");
-42
-        }
-43
-        fread(buf, 1, SIZE, file);
-44
-        fclose(file);
-45
