@@ -181,24 +181,6 @@ int main ( int argc, char **argv )
    esInitContext ( &esContext );
    esContext.userData = &userData;
 
-//   printf("Enter filename: ");
-//   char filename[200];
-//   scanf("%s", &filename);
-//   printf("Enter width: ");
-//   int width;
-//   scanf("%d", &width);
-//   printf("Enter height: ");
-//   int height;
-//   scanf("%d", &height);
-//   printf("\n");
-
-//   int i;
-//
-//	printf("%d\n", argc);
-//
-//	for (i=0; i < argc; i++)
-//		puts(argv[i]);
-
    int w = 0, h = 0;
    w = strtol(argv[2], NULL, 10);
    h = strtol(argv[3], NULL, 10);
@@ -216,3 +198,91 @@ int main ( int argc, char **argv )
 }
 
 
+/*
+2
+ * main.c
+3
+ *
+4
+ *  Created on: Sep 21, 2020
+5
+ *      Author: roman
+6
+ */
+7
+​
+8
+#include <stdlib.h>
+9
+#include <stdio.h>
+10
+#include <stdint.h>
+11
+#include "esUtil/esUtil.h"
+12
+​
+13
+typedef struct
+14
+{
+15
+   // Handle to a program object
+16
+   GLuint programObject;
+17
+​
+18
+   // Attribute locations
+19
+   GLint  positionLoc;
+20
+   GLint  texCoordLoc;
+21
+​
+22
+   // Sampler location
+23
+   GLint samplerLoc;
+24
+​
+25
+   // Texture handle
+26
+   GLuint textureId;
+27
+​
+28
+} UserData;
+29
+​
+30
+///
+31
+// Create texture image
+32
+//
+33
+GLuint knCreateTextureFromBuf(const char *filename, GLint width, GLint height)
+34
+{
+35
+        FILE *file;
+36
+        GLuint textureId;
+37
+        const int SIZE = width * height * 3;
+38
+        uint8_t buf[SIZE];
+39
+​
+40
+        if((file = fopen(filename, "r")) == NULL) {
+41
+                printf("Cannot open file.");
+42
+        }
+43
+        fread(buf, 1, SIZE, file);
+44
+        fclose(file);
+45
