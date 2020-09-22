@@ -40,7 +40,7 @@ GLuint knCreateTextureFromBuf(const char *filename, GLint width, GLint height)
 	if((file = fopen(filename, "r")) == NULL) {
 		printf("Cannot open file.");
 	}
-	fread(buf, 1, SIZE, file);
+	fread(buf, sizeof(uint8_t), SIZE, file);
 	fclose(file);
 
 	// Use tightly packed data
@@ -53,7 +53,7 @@ GLuint knCreateTextureFromBuf(const char *filename, GLint width, GLint height)
 	glBindTexture ( GL_TEXTURE_2D, textureId );
 
 	// Load the texture
-	glTexImage2D ( GL_TEXTURE_2D, 0, GL_RGB, 640, 400, 0, GL_RGB, GL_UNSIGNED_BYTE, buf );
+	glTexImage2D ( GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buf );
 
 	// Set the filtering mode
 	glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
@@ -115,7 +115,7 @@ void Draw ( ESContext *esContext )
                             0.0f,  0.0f,        // TexCoord 0
                            -1.0f,  1.0f, 0.0f,  // Position 1
                             0.0f,  1.0f,        // TexCoord 1
-   			    1.0f,  1.0f, 0.0f,  // Position 2
+			    1.0f,  1.0f, 0.0f,  // Position 2
                             1.0f,  1.0f,        // TexCoord 2
 			    1.0f, -1.0f, 0.0f,  // Position 3
                             1.0f,  0.0f         // TexCoord 3
@@ -196,3 +196,5 @@ int main ( int argc, char **argv )
 
    ShutDown ( &esContext );
 }
+
+
